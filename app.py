@@ -1,6 +1,6 @@
 import os
 from dotenv import load_dotenv
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.runnables import RunnablePassthrough
@@ -49,16 +49,21 @@ def analyze_code_endpoint():
         data = request.get_json()
         code_to_analyze = data.get('code', '')
         
+        print(f"Received code: {code_to_analyze[:100]}...")  # Log first 100 chars
+
         if not code_to_analyze:
             return jsonify({"error": "No code provided"}), 400
-        
+
         feedback_report = get_code_feedback(code_to_analyze)
-        
         return jsonify({"report": feedback_report})
-    
+
     except Exception as e:
         print(f"An error occurred: {e}")
         return jsonify({"error": str(e)}), 500
+
+@app.route('/')
+def home():
+    return render_template('index.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
