@@ -49,13 +49,14 @@ def analyze_code_endpoint():
         data = request.get_json()
         code_to_analyze = data.get('code', '')
         
+        print(f"Received code: {code_to_analyze[:100]}...")  # Log first 100 chars
+
         if not code_to_analyze:
             return jsonify({"error": "No code provided"}), 400
-        
+
         feedback_report = get_code_feedback(code_to_analyze)
-        
         return jsonify({"report": feedback_report})
-    
+
     except Exception as e:
         print(f"An error occurred: {e}")
         return jsonify({"error": str(e)}), 500
