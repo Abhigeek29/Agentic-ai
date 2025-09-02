@@ -28,3 +28,6 @@ Agentic AI is a smart code analysis and feedback tool designed to help learners 
 ### AI Integration
 - **OpenAI GPT**
 - **Google Gemini**
+
+The project is made for The IBM internship 2025
+
